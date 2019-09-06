@@ -3,8 +3,8 @@ const server = express();
 server.use(express.json());
 
 // Routers
-// const userRouter = require("./users/userRouter");
-// server.use("/api/users", userRouter);
+const projectsRouter = require("./projects/projects-router");
+server.use("/api/projects", projectsRouter);
 
 server.get("/", (req, res) => {
   res.send(`<h2>Hello Peeps</h2>`);
