@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 
-const actModel = require("../data/helpers/actionModel");
 const proModel = require("../data/helpers/projectModel");
 router.get("/", (req, res) => {
   proModel
