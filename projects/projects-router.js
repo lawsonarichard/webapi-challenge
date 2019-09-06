@@ -3,9 +3,9 @@ const router = express.Router();
 router.use(express.json());
 
 const actModel = require("../data/helpers/actionModel");
-
+const proModel = require("../data/helpers/projectModel");
 router.get("/", (req, res) => {
-  actModel
+  proModel
     .get()
     .then(project => {
       res.status(200).json(project);
@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", validateId, (req, res) => {
   const { id } = req.params;
-  actModel.get(id).then(project => {
+  proModel.get(id).then(project => {
     if (project) {
       res.status(200).json(project);
     } else {
@@ -29,7 +29,7 @@ router.get("/:id", validateId, (req, res) => {
 
 router.delete("/:id", validateId, (req, res) => {
   const { id } = req.params;
-  actModel
+  proModel
     .remove(id)
     .then(() => res.status(204).end())
     .catch(err => {
@@ -42,10 +42,10 @@ router.put("/:id", validateId, (req, res) => {
   const { id } = req.params;
   const { description } = req.body;
   const { name } = req.body;
-  actModel
+  proModel
     .update(id, { description }, { name })
     .then(() => {
-      actModel
+      proModel
         .get(id)
         .then(project => res.status(200).json(project))
         .catch(err => {
@@ -63,7 +63,7 @@ router.put("/:id", validateId, (req, res) => {
 
 function validateId(req, res, next) {
   const { id } = req.params.id;
-  actModel.get(id).then(project => {
+  proModel.get(id).then(project => {
     if (project) {
       next();
     } else {
